@@ -2,7 +2,6 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <silent> <Plug>(-fzf-complete-finish) l
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', 'insert')
 inoremap <silent> <Plug>(fzf-maps-i) :call fzf#vim#maps('i', 0)
 inoremap <expr> <Plug>(fzf-complete-buffer-line) fzf#vim#complete#buffer_line()
@@ -57,10 +56,6 @@ map fj 0cw<BS>
 vmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
 map gw g
-nnoremap <silent> <Plug>(-fzf-complete-finish) a
-nnoremap <Plug>(-fzf-:) :
-nnoremap <Plug>(-fzf-/) /
-nnoremap <Plug>(-fzf-vim-do) :execute g:__fzf_command
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))
 tnoremap <silent> <Plug>(fzf-normal) 
@@ -108,6 +103,7 @@ set fileencodings=ucs-bom,utf-8,default,latin1
 set helplang=en
 set ignorecase
 set incsearch
+set laststatus=2
 set listchars=nbsp:¬,tab:»·,trail:·,extends:>
 set previewpopup=height:15,width:60
 set ruler
@@ -118,6 +114,7 @@ set smartcase
 set smartindent
 set splitbelow
 set splitright
+set statusline=\ %F%=\ FT:\ %y\ %l:%c
 set suffixes=.bak,~,.o,.info,.swp,.aux,.bbl,.blg,.brf,.cb,.dvi,.idx,.ilg,.ind,.inx,.jpg,.log,.out,.png,.toc
 set noswapfile
 set undodir=~/.vim/undodir
@@ -137,25 +134,10 @@ set shortmess=aoO
 argglobal
 %argdel
 $argadd main.c
+set stal=2
+tabnew
+tabrewind
 edit main.c
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-exe 'vert 1resize ' . ((&columns * 67 + 68) / 136)
-exe 'vert 2resize ' . ((&columns * 68 + 68) / 136)
 argglobal
 setlocal keymap=
 setlocal noarabic
@@ -286,16 +268,16 @@ setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 13 - ((12 * winheight(0) + 17) / 35)
+let s:l = 27 - ((25 * winheight(0) + 17) / 34)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 13
-normal! 09|
-wincmd w
+keepjumps 27
+normal! 013|
+tabnext
+edit keys.h
 argglobal
-if bufexists("~/sr/c/keylogger.c") | buffer ~/sr/c/keylogger.c | else | edit ~/sr/c/keylogger.c | endif
-balt main.c
+balt keys.h
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -330,8 +312,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'c'
-setlocal filetype=c
+if &filetype != 'cpp'
+setlocal filetype=cpp
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -401,8 +383,8 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'c'
-setlocal syntax=c
+if &syntax != 'cpp'
+setlocal syntax=cpp
 endif
 setlocal tabstop=8
 setlocal tagcase=
@@ -425,25 +407,21 @@ setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 13 - ((12 * winheight(0) + 17) / 35)
+let s:l = 1 - ((0 * winheight(0) + 17) / 34)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 13
-normal! 09|
-wincmd w
-exe 'vert 1resize ' . ((&columns * 67 + 68) / 136)
-exe 'vert 2resize ' . ((&columns * 68 + 68) / 136)
+keepjumps 1
+normal! 0
 tabnext 1
-badd +13 main.c
-badd +0 ~/sr/c/keylogger.c
+set stal=1
+badd +0 main.c
+badd +0 keys.h
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20 shortmess=filnxtToOSc
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

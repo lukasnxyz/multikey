@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <stdbool.h>
+#include "keys.h"
 
 #define EVENT_FILE "/dev/input/event3"
 
@@ -23,8 +24,8 @@ int main(int argc, char **argv) {
     while(con) {
         read(fd, &ev, sizeof(ev));
         fflush(stdout);
-        if(ev.value == 1) {
-            if(ev.code == 41) {
+        if(ev.value == evcodeDepress) {
+            if(ev.code == keyGrave) {
             system(command);
             }
         }

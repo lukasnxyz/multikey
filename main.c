@@ -1,10 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <linux/input.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <stdbool.h>
+
 #define EVENT_FILE "/dev/input/event3"
 
 int main(int argc, char **argv) {
@@ -12,19 +15,20 @@ int main(int argc, char **argv) {
     bool con = true;
     int fd = open(EVENT_FILE, O_RDONLY);
 
-    char *map = "..1234567890-=..qwertyuiop[]\n.asdfghjkl;'~^\\zxcvbnm,./^.. .";
+    // char *map = "..1234567890-=..qwertyuiop[]\n.asdfghjkl;'~^\\zxcvbnm,./^.. .";
+    // printf("%c", map[ev.code]);
 
+    char command[10];
+    strcpy(command, "st &");
     while(con) {
         read(fd, &ev, sizeof(ev));
         fflush(stdout);
-        if((ev.type == EV_KEY) && (ev.value == 0)) {
-            printf("%c", map[ev.code]);
-            fprintf(fp, "%c", map[ev.code]);
-        } else if(ev.code == 54) {
-            con = false;
+        if(ev.value == 1) {
+            if(ev.code == 41) {
+            system(command);
+            }
         }
     }
-    fclose(fp);
     close(fd);
 
     return 0;

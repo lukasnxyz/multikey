@@ -11,7 +11,7 @@
 #define EVCODE_RELEASE 0
 
 typedef struct {
-    int keyNum;
+    unsigned int keyNum;
     char inComm[256];
 } Key;
 

@@ -5,7 +5,6 @@
 #include <unistd.h>
 #include <linux/input.h>
 #include <linux/input-event-codes.h>
-#include "config.h"
 
 #define EVENT_FILE "/dev/input/event3"
 #define EVCODE_DEPRESS 1
@@ -16,18 +15,21 @@ typedef struct {
     char inComm[256];
 } Key;
 
+#include "config.h"
+
 int main(int argc, char **argv) {
     struct input_event ev;
     int fd = open(EVENT_FILE, O_RDONLY);
 
-    char command[30];
-    strcpy(command, "amixer -q sset Master 3%-");
     while(1) {
         read(fd, &ev, sizeof(ev));
         fflush(stdout);
+        //printf("%i", sizeof(keys) / sizeof(keys[0]));
         if(ev.value == EVCODE_DEPRESS) {
-            if(ev.code == KEY_VOLUMEDOWN) {
-                system(command);
+            for(int j = 0; j <= (sizeof(keys) / sizeof(keys[0])); j++) {
+                if(ev.code == keys[j].keyNum) {
+                    system(keys[j].inComm);
+                }
             }
         }
     }

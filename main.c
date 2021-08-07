@@ -24,11 +24,14 @@ int main(int argc, char **argv) {
     while(con) {
         read(fd, &ev, sizeof(ev));
         fflush(stdout);
+        if(ev.value == evcodeRelease)
+            printf("%i\n", ev.code);
+        /*
         if(ev.value == evcodeDepress) {
-            if(ev.code == keyGrave) {
-            system(command);
+            if(ev.code == keyGrave && ev.code == keyF3) {
+                system(command);
             }
-        }
+        }*/
     }
     close(fd);
 

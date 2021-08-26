@@ -6,7 +6,7 @@
 #include <linux/input.h>
 #include <linux/input-event-codes.h>
 
-#define EVENT_FILE "/dev/input/event3"
+#define EVENT_FILE "/dev/input/event23"
 #define EVCODE_DEPRESS 1
 #define EVCODE_RELEASE 0
 

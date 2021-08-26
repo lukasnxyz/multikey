@@ -23,20 +23,10 @@ int main(int argc, char **argv) {
 
     while(1) {
         read(fd, &ev, sizeof(ev));
-        //fflush(stdout);
-        //printf("%i", sizeof(keys) / sizeof(keys[0]));
-
-        /*
-        if(ev.type == 1 && ev.value == 0){
-            printf("Key: %i State: %i\n",ev.code,ev.value);
-        }*/
-
-        if(ev.code == KEY_ESC) {
-            if(ev.value == EVCODE_DEPRESS) {
-                for(int j = 0; j <= (sizeof(keys) / sizeof(keys[0])); j++) {
-                    if(ev.code == keys[j].keyNum) {
-                        system(keys[j].inComm);
-                    }
+        if(ev.value == EVCODE_DEPRESS) {
+            for(int j = 0; j <= (sizeof(keys) / sizeof(keys[0])); j++) {
+                if(ev.code == keys[j].keyNum) {
+                    system(keys[j].inComm);
                 }
             }
         }

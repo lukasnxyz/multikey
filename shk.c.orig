@@ -33,11 +33,11 @@ int main(int argc, char **argv) {
 
         if(ev.code == KEY_ESC) {
             if(ev.value == EVCODE_DEPRESS) {
-                for(int j = 0; j <= (sizeof(keys) / sizeof(keys[0])); j++) {
-                    if(ev.code == keys[j].keyNum) {
-                        system(keys[j].inComm);
-                    }
+            for(int j = 0; j <= (sizeof(keys) / sizeof(keys[0])); j++) {
+                if(ev.code == keys[j].keyNum) {
+                    system(keys[j].inComm);
                 }
+            }
             }
         }
     }

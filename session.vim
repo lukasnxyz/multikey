@@ -146,8 +146,9 @@ tabnew
 tabnew
 tabnew
 tabrewind
-edit main.c
+edit shk.c
 argglobal
+balt config.h
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -198,7 +199,7 @@ setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
 setlocal formatoptions=croql
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatlistpat=^\\s*\\%(\\(-\\|\\*\\|+\\)\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
 setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
@@ -208,7 +209,7 @@ setlocal includeexpr=
 setlocal indentexpr=
 setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
+setlocal iskeyword=@,48-57,_,192-255,$
 setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
@@ -277,16 +278,15 @@ setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 38 - ((26 * winheight(0) + 17) / 34)
+let s:l = 1 - ((0 * winheight(0) + 17) / 34)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 38
+keepjumps 1
 normal! 0
 tabnext
 edit config.h
 argglobal
-balt config.h
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -421,7 +421,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 2
-normal! 07|
+normal! 0
 tabnext
 edit /usr/include/linux/input-event-codes.h
 argglobal
@@ -840,10 +840,11 @@ keepjumps 4
 normal! 0
 tabnext 1
 set stal=1
+badd +0 shk.c
 badd +1 main.c
-badd +0 config.h
 badd +1 /usr/include/linux/input-event-codes.h
 badd +1 README.md
+badd +2 config.h
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif

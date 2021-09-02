@@ -6,4 +6,3 @@ clean: shk
 	rm a
 test:
 	gcc test.c -o test `sdl2-config --cflags --libs`
-

@@ -3,5 +3,4 @@ static Key keys[] = {
     { KEY_T,            "$TERMINAL &" },
     { KEY_B,            "$BROWSER &" },
     { KEY_F,            "thunar &" },
-    { KEY_S,            "spotify &" },
 };

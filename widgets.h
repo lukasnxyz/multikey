@@ -9,6 +9,12 @@
 #include <sys/types.h>
 #include <ifaddrs.h>
 
+#define TODO(notes) \
+    do { \
+        fprintf(stderr, "Function '%s' todo: %s\n", \
+                __func__, notes); \
+    } while(0); \
+
 #define FILEMAX 30
 
 typedef struct {
@@ -16,24 +22,27 @@ typedef struct {
     char name[FILEMAX];
 } kbd;
 
-extern AppIndicator *indicator;
+extern AppIndicator *multikey;
 
 extern GtkWidget *title;
-extern GtkWidget *separatorMenuItem;
-extern GtkWidget *sysInfoWidget;
-extern GtkWidget *localIpWidget;
-extern GtkWidget *keyboardCleaningMode;
-extern GtkWidget *menuQuit;
+extern GtkWidget *separator_menu_widget;
+extern GtkWidget *sys_info_widget;
+extern GtkWidget *local_ip_widget;
+extern GtkWidget *keyboard_cleaning_widget;
+extern GtkWidget *menu_quit_widget;
 
-void QuitCallback(GtkWidget *, gpointer);
-double GetStorage(void);
-char *GetCpuTemp(void);
-gboolean UpdateSysInfo(gpointer);
-char *getLocalIp(void);
-gboolean UpdateLocalIp(gpointer);
-void OnKeyboardCleaningModeActivated(GtkMenuItem *, gpointer);
+double get_storage(void);
+char *get_cpu_temp(void);
+char *get_local_ip(void);
+char *get_default_keyboard(void);
 
-int numLines(FILE *);
-char *shareDir(char *);
+void on_keyboard_cleaning_mode_activated(GtkMenuItem *, gpointer);
+void quit_callback(GtkWidget *, gpointer);
+
+gboolean update_sys_info(gpointer);
+gboolean update_local_ip(gpointer);
+
+int num_lines(FILE *);
+char *share_dir(char *);
 
 #endif /* _WIDGET_H */

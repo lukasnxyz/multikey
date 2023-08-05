@@ -4,28 +4,18 @@ allows you to use extra external keyboards as custom "macro keyboards" by being 
 individual events to each key on each keyboard.
 
 #### Dependencies
-- `gtk3`
-- `libappindicator-gtk3`
-- `lm_sensors`
-- `font awesome`
+```
+- gtk3
+- libappindicator-gtk3
+- lm_sensors
+- font awesome
+```
 
-#### Build and Install
-- Build with `sudo make` -> run with ./multiKey
-- Install with `sudo make install` (might be broken currently)
-
-#### How to have MultiKey autostart
-
-#### Todo
-- [X] Fix accuracy of getMemory, getCpu, getCpuTemp
-- [X] Move keyboard.txt search to `~/.local/share/`
-- [X] Keyboard cleaning feature (disable all keyboards)
-- [ ] Enable keyboard if disabled, on quit
-- [ ] Get default keyboard into keyboard.txt
-- [ ] Local IP Address list
-- [ ] Upload to AUR
-- [ ] Transfer shk_list into MultiKey
-- [ ] Transfer shk_run into MultiKey
-- [ ] Get keyboard id's into a list
+#### Quick Start
+```console
+$ sudo make install
+$ ./multiKey
+```
 
 #### Notes
 - use `cat /proc/bus/input/devices` to find event id for keyboard

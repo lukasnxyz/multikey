@@ -4,9 +4,10 @@
 CC=gcc
 SRC=main.c widgets.c
 OBJS=${SRC:.c=.o}
-CFLAGS=-g -std=c11
+CFLAGS=-Wall -g -std=c11
 OPTS=`pkg-config --cflags --libs gtk+-3.0 appindicator3-0.1`
 
+SRCDIR=src
 PREFIX=/usr/local
 MANPREFIX=${PREFIX}/share/man
 INFODIR=/usr/share/multikey
